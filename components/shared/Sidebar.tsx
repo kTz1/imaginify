@@ -57,7 +57,7 @@ const Sidebar = () => {
                 )
               })}
             </ul>
-              {/* sign out botton */}
+
             <ul className="sidebar-nav_elements">
               {navLinks.slice(6).map((link) =>{
                 const isActive = link.route === pathname;
@@ -85,13 +85,13 @@ const Sidebar = () => {
                   </li>
                 )
               })}
-              
+
               <li className="flex-center cursor-pointer gap-2 p-4">
                 <UserButton afterSignOutUrl='/' showName />
               </li>
             </ul>  
           </SignedIn>
-            
+      
           <SignedOut>
             <Button asChild className="button bg-purple-gradient bg-cover">
               <Link href="/sign-in">Login</Link>
