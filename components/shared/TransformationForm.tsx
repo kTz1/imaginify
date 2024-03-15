@@ -32,6 +32,7 @@ import { CustomField } from "./CustomField";
 import { useState, useTransition } from "react";
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
 import { config } from "process";
+import MediaUploader from "./MediaUploader";
 
 export const formSchema = z.object({
   title: z.string(),
@@ -51,9 +52,9 @@ const TransformationForm = ({
 }: TransformationFormProps) => {
   const transformationType = transformationTypes[type];
   const [image, setImage] = useState(data);
-  const [newTransformation, setnewTransformation] =
+  const [newTransformation, setNewTransformation] =
     useState<Transformations | null>(null);
-  const [isSubmitting, setisSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
   const [transformationConfig, setTransformationConfig] = useState(config);
   const [isPending, startTransition] = useTransition();
@@ -92,7 +93,7 @@ const TransformationForm = ({
       height: imageSize.height,
     }));
 
-    setnewTransformation(transformationType.config);
+    setNewTransformation(transformationType.config);
     return onChangeField(value);
   };
 
@@ -103,7 +104,7 @@ const TransformationForm = ({
     onChangeField: (value: string) => void
   ) => {
     debounce(() => {
-      setnewTransformation((prevState: any) => ({
+      setNewTransformation((prevState: any) => ({
         ...prevState,
         [type]: {
           ...prevState?.[type],
@@ -120,7 +121,7 @@ const TransformationForm = ({
       deepMergeObjects(newTransformation, transformationConfig)
     );
 
-    setnewTransformation(null);
+    setNewTransformation(null);
 
     startTransition(async () => {
       //await updateCredits(userId, creditFee)
@@ -214,6 +215,24 @@ const TransformationForm = ({
             )}
           </div>
         )}
+
+        {/* Media uploader */}
+        <div className="media-uploader-field">
+          <CustomField
+            control={form.control}
+            name="publicId"
+            className="flex size-full flex-col"
+            render={({ field }) => (
+              <MediaUploader
+                onValueChange={field.onChange}
+                setImage={setImage}
+                publicId={field.value}
+                image={image}
+                type={type}
+              />
+            )}
+          />
+        </div>
         {/* Buttons */}
         <div className="flex flex-col gap-4">
           <Button
