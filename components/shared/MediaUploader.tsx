@@ -29,7 +29,7 @@ const MediaUploader = ({
       publicId: result?.info?.public_id,
       width: result?.info?.width,
       height: result?.info?.height,
-      secureUrl: result?.info?.secure_url,
+      secureURL: result?.info?.secure_url,
     }));
 
     onValueChange(result?.info?.public_id); // form changed and will update the public id

@@ -42,7 +42,7 @@ const TransformedImage = ({
             alt={image.title}
             sizes={"(max-width: 768px) 100vw, 50vw"}
             placeholder={dataUrl as PlaceholderValue}
-            className="tranformed-image"
+            className="transformed-image"
             onLoad={() => {
               setIsTransforming && setIsTransforming(false);
             }}
@@ -58,7 +58,7 @@ const TransformedImage = ({
             <div className="transforming-loader">
               <Image
                 src="/assets/icons/spinner.svg"
-                alt="transforming"
+                alt="spinner"
                 width={50}
                 height={50}
               />
