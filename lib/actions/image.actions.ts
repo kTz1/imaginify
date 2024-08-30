@@ -99,7 +99,7 @@ export async function getAllImages({
 }: {
   limit?: number;
   page: number;
-  searchQuery: string;
+  searchQuery?: string;
 }) {
   try {
     await connectToDatabase();
@@ -113,10 +113,11 @@ export async function getAllImages({
 
     let expression = "folder=imaginify";
 
+    // search only for specific images
     if (searchQuery) {
       expression += ` AND ${searchQuery}`;
     }
-
+    // get the resources back
     const { resources } = await cloudinary.search
       .expression(expression)
       .execute();
@@ -133,12 +134,16 @@ export async function getAllImages({
       };
     }
 
+    // implement the pagination
     const skipAmount = (Number(page) - 1) * limit;
+
+    // fetch back the images
     const images = await populateUser(Image.find(query))
       .sort({ updatedAt: -1 })
       .skip(skipAmount)
       .limit(limit);
 
+    // define the number of total images
     const totalImages = await Image.find(query).countDocuments();
     const savedImages = await Image.find().countDocuments();
 
