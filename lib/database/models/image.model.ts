@@ -4,7 +4,7 @@ export interface IImage extends Document {
   title: string;
   transformationType: string;
   publicId: string;
-  secureURL: URL;
+  secureURL: string;
   width?: number;
   height?: number;
   config?: object;
@@ -12,11 +12,11 @@ export interface IImage extends Document {
   aspectRatio?: string;
   color?: string;
   prompt?: string;
-  author?: {
+  author: {
     firstName: string;
     lastName: string;
-    _id: string;
   };
+  _id: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
