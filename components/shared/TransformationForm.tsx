@@ -107,6 +107,7 @@ const TransformationForm = ({
         prompt: values.prompt,
         color: values.color,
       };
+
       // add and update image
       if (action === "Add") {
         try {
@@ -178,8 +179,8 @@ const TransformationForm = ({
           [fieldName === "prompt" ? "prompt" : "to"]: value,
         },
       }));
-      return onChangeField(value);
-    }, 1000);
+    }, 1000)();
+    return onChangeField(value);
   };
 
   const onTransformHandler = async () => {
