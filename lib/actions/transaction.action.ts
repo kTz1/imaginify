@@ -3,6 +3,8 @@
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 import Transaction from "../database/models/transaction.model";
+import { connectToDatabase } from "../database/mongoose";
+import { handleError } from "../utils";
 
 // Process payment
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
@@ -53,4 +55,7 @@ export async function createTransaction(transaction: CreateTransactionParams) {
   } catch (error) {
     handleError(error);
   }
+}
+function updateUserCredits(buyerId: string, credits: number) {
+  throw new Error("Function not implemented.");
 }
