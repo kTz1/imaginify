@@ -5,6 +5,7 @@ import Stripe from "stripe";
 import Transaction from "../database/models/transaction.model";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
+import { updateCredits } from "./user.actions";
 
 // Process payment
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
@@ -49,13 +50,10 @@ export async function createTransaction(transaction: CreateTransactionParams) {
       buyer: transaction.buyerId,
     });
 
-    await updateUserCredits(transaction.buyerId, transaction.credits);
+    await updateCredits(transaction.buyerId, transaction.credits);
 
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {
     handleError(error);
   }
-}
-function updateUserCredits(buyerId: string, credits: number) {
-  throw new Error("Function not implemented.");
 }
