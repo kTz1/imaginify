@@ -4,11 +4,19 @@ import Image from "next/image";
 import { Collection } from "@/components/shared/Collection";
 import { getAllImages } from "@/lib/actions/image.actions";
 
-const Home = async ({ searchParams }: SearchParamProps) => {
-  const page = Number(searchParams?.page) || 1;
-  const searchQuery = (searchParams?.query as string) || "";
+interface SearchParams {
+  searchParams: {
+    page?: number;
+    query?: string | string[];
+  };
+}
 
-  const images = await getAllImages({ page, searchQuery });
+const Home = async ({ searchParams }: SearchParams) => {
+  const { page = 1, query = "" } = await searchParams;
+  const currentPage = Array.isArray(page) ? page[0] : page;
+  const searchQuery = Array.isArray(query) ? query[0] : query;
+
+  const images = await getAllImages({ page: currentPage, searchQuery });
 
   return (
     <>
@@ -38,7 +46,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
           hasSearch={true}
           images={images?.data}
           totalPages={images?.totalPages}
-          page={page}
+          page={currentPage}
         />
       </section>
     </>

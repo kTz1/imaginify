@@ -10,27 +10,21 @@ import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 export const Search = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(searchParams.get("query") || "");
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      if (query) {
-        const newUrl = formUrlQuery({
-          searchParams: searchParams.toString(),
-          key: "query",
-          value: query,
-        });
+      const params = new URLSearchParams(searchParams.toString());
 
-        router.push(newUrl, { scroll: false });
+      if (query.trim()) {
+        params.set("query", query.trim());
       } else {
-        const newUrl = removeKeysFromQuery({
-          searchParams: searchParams.toString(),
-          keysToRemove: ["query"],
-        });
-
-        router.push(newUrl, { scroll: false });
+        params.delete("query");
       }
-    }, 300);
+
+      params.set("page", "1");
+      router.push(`?${params.toString()}`); // Reset page to 1
+    }, 300); // delay in ms
 
     return () => clearTimeout(delayDebounceFn);
   }, [router, searchParams, query]);
