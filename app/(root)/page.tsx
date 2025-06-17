@@ -4,13 +4,9 @@ import Image from "next/image";
 import { Collection } from "@/components/shared/Collection";
 import { getAllImages } from "@/lib/actions/image.actions";
 
-type PageProps = {
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-const Home = async ({ searchParams }: PageProps) => {
-  const searchQuery = (searchParams?.query as string) || "";
-  const page = Number(searchParams?.page) || 1;
+const Home = async ({ searchParams }: SearchParamProps) => {
+  const page = Number(searchParams.page) || 1;
+  const searchQuery = (searchParams.query as string) || "";
 
   const images = await getAllImages({ page, searchQuery });
 
