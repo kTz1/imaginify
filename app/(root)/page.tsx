@@ -9,9 +9,8 @@ type PageProps = {
 };
 
 const Home = async ({ searchParams }: PageProps) => {
-  const params = await searchParams;
-  const searchQuery = (params?.query as string) || "";
-  const page = Number(params?.page) || 1;
+  const searchQuery = (searchParams?.query as string) || "";
+  const page = Number(searchParams?.page) || 1;
 
   const images = await getAllImages({ page, searchQuery });
 
