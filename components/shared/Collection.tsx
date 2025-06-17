@@ -24,11 +24,13 @@ export const Collection = ({
   images,
   totalPages = 1,
   page,
+  fetchpriority,
 }: {
   images: IImage[];
   totalPages?: number;
   page: number;
   hasSearch?: boolean;
+  fetchpriority?: "high" | "low" | "auto";
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
