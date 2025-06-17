@@ -4,7 +4,11 @@ import Image from "next/image";
 import { Collection } from "@/components/shared/Collection";
 import { getAllImages } from "@/lib/actions/image.actions";
 
-const Home = async ({ searchParams }: SearchParamProps) => {
+const Home = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
   const page = Number(searchParams.page) || 1;
   const searchQuery = (searchParams.query as string) || "";
 
