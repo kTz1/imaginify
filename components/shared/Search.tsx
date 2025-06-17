@@ -14,17 +14,22 @@ export const Search = () => {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      const params = new URLSearchParams(searchParams.toString());
+      if (query) {
+        const newUrl = formUrlQuery({
+          searchParams: searchParams.toString(),
+          key: "query",
+          value: query,
+        });
 
-      if (query.trim()) {
-        params.set("query", query.trim());
+        router.push(newUrl, { scroll: false });
       } else {
-        params.delete("query");
+        const newUrl = removeKeysFromQuery({
+          searchParams: searchParams.toString(),
+          keysToRemove: ["query"],
+        });
+        router.push(newUrl, { scroll: false });
       }
-
-      params.set("page", "1");
-      router.push(`?${params.toString()}`); // Reset page to 1
-    }, 300); // delay in ms
+    }, 300);
 
     return () => clearTimeout(delayDebounceFn);
   }, [router, searchParams, query]);
