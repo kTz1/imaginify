@@ -7,10 +7,11 @@ import { getAllImages } from "@/lib/actions/image.actions";
 const Home = async ({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ id: string; page?: string; query?: string }>;
 }) => {
-  const page = Number(searchParams.page) || 1;
-  const searchQuery = (searchParams.query as string) || "";
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const searchQuery = params.query || "";
 
   const images = await getAllImages({ page, searchQuery });
 
