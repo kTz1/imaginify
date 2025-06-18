@@ -60,7 +60,7 @@ const Profile = async ({
           images={images?.data}
           totalPages={images?.totalPages}
           page={page}
-          fetchpriority="high"
+          fetchPriority="high"
         />
       </section>
     </>

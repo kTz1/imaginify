@@ -57,7 +57,7 @@ const MobileNav = () => {
                         } p-18 whitespace-nowrap text-dark-700`}
                       >
                         <Link
-                          className="sidebar-link cursor-poiter"
+                          className="sidebar-link cursor-pointer"
                           href={link.route}
                         >
                           <Image
@@ -65,6 +65,7 @@ const MobileNav = () => {
                             alt="logo"
                             width={24}
                             height={24}
+                            fetchPriority="low"
                           />
                           {link.label}
                         </Link>

@@ -24,13 +24,12 @@ export const Collection = ({
   images,
   totalPages = 1,
   page,
-  fetchpriority,
 }: {
   images: IImage[];
   totalPages?: number;
   page: number;
   hasSearch?: boolean;
-  fetchpriority?: "high" | "low" | "auto";
+  fetchPriority?: "high" | "low" | "auto";
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -110,6 +109,7 @@ const Card = ({ image }: { image: IImage }) => {
           height={image.height}
           {...image.config}
           loading="lazy"
+          fetchPriority="high"
           className="h-52 w-full rounded-[10px] object-cover"
           sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
         />

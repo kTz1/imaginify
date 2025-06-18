@@ -66,7 +66,7 @@ const MediaUploader = ({
           <h3 className="h3-bold text-dark-600">Original</h3>
           {publicId ? (
             <>
-              <div className="cursor-poiter overflow-hidden rounded-[10px]">
+              <div className="cursor-pointer overflow-hidden rounded-[10px]">
                 <CldImage
                   width={getImageSize(type, image, "width")}
                   height={getImageSize(type, image, "height")}
@@ -79,7 +79,11 @@ const MediaUploader = ({
               </div>
             </>
           ) : (
-            <div className="media-uploader_cta" onClick={() => open()}>
+            <div
+              className="media-uploader_cta"
+              role="button"
+              onClick={() => open && open()}
+            >
               <div className="media-uploader_cta-image">
                 <Image
                   src="/assets/icons/add.svg"
