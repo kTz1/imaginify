@@ -7,9 +7,9 @@ import { getAllImages } from "@/lib/actions/image.actions";
 const Home = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ id: string; query: string; page: number }>;
+  searchParams: Promise<{ query: string; page: number }>;
 }) => {
-  const { id, query, page } = await searchParams;
+  const { query, page } = await searchParams;
   const searchQuery = query || "";
   const currentPage = page || 1;
 
