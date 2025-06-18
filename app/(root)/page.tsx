@@ -3,15 +3,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { Collection } from "@/components/shared/Collection";
 import { getAllImages } from "@/lib/actions/image.actions";
+import { headers } from "next/headers";
 
-const Home = async ({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) => {
-  const params = await searchParams;
-  const page = Number(params?.page) || 1;
-  const searchQuery = (params?.query as string) || "";
+const Home = async () => {
+  // Get the full URL of the request
+  const headersList = headers();
+  const fullUrl = (await headersList).get("x-url") || ""; // Fallback just in case
+
+  const url = new URL(fullUrl, "http://localhost"); // base URL needed to parse
+  const pageParam = url.searchParams.get("page");
+  const queryParam = url.searchParams.get("query");
+
+  const page = Number(pageParam) || 1;
+  const searchQuery = queryParam || "";
 
   const images = await getAllImages({ page, searchQuery });
 
